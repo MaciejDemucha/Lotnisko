@@ -10,13 +10,14 @@ public class Rezerwacja {
     public Rezerwacja(Lot lot, Miejsce miejsce, Pasazer pasazer, HashMap<Integer, Rezerwacja> rezerwacje) {
         this.lot = lot;
         this.miejsce = miejsce;
+        this.miejsce.setCzyZajete(true);
         this.pasazer = pasazer;
 
         Random random = new Random();
 
         do{
-            this.numerRezerwacji = random.nextInt();
-        }while (!rezerwacje.containsKey(this.numerRezerwacji));
+            this.numerRezerwacji = random.nextInt(1000);
+        }while (rezerwacje.containsKey(this.numerRezerwacji));
 
     }
 
@@ -51,5 +52,14 @@ public class Rezerwacja {
 
     public void setNumerRezerwacji(int numerRezerwacji) {
         this.numerRezerwacji = numerRezerwacji;
+    }
+
+    @Override
+    public String toString() {
+        return "Rezerwacja{" +
+                "lot=" + lot.getRelacja() +
+                ", miejsce = " + miejsce.getNumer() +
+                ", numerRezerwacji = " + numerRezerwacji +
+                '}';
     }
 }
