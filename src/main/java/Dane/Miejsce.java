@@ -1,3 +1,5 @@
+package Dane;
+
 public class Miejsce {
     private int numer;
     private boolean czyZajete;
@@ -15,7 +17,7 @@ public class Miejsce {
         this.numer = numer;
     }
 
-    boolean getCzyMiejsceJestZajete(){
+    public boolean getCzyMiejsceJestZajete(){
         return czyZajete;
     }
 

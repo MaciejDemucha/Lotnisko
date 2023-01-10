@@ -1,3 +1,5 @@
+package Dane;
+
 public class Pasazer {
     private String imie;
     private String nazwisko;

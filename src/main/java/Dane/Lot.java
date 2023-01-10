@@ -1,3 +1,5 @@
+package Dane;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -93,7 +95,7 @@ public class Lot {
 
     @Override
     public String toString() {
-        return "Lot{" +
+        return "Dane.Lot{" +
                 "numerLotu = " + numerLotu +
                 ", miejsca = " + miejsca.size() +
                 ", relacja = '" + relacja + '\'' +

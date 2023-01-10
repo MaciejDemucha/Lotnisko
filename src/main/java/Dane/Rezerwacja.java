@@ -1,4 +1,7 @@
+package Dane;
+
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class Rezerwacja {
@@ -56,10 +59,25 @@ public class Rezerwacja {
 
     @Override
     public String toString() {
-        return "Rezerwacja{" +
-                "lot=" + lot.getRelacja() +
+        return "Dane.Rezerwacja{" +
+                " numerRezerwacji = " + numerRezerwacji +
+                ", lot=" + lot.getRelacja() +
+                ", godzina=" + lot.getGodzina() +
                 ", miejsce = " + miejsce.getNumer() +
-                ", numerRezerwacji = " + numerRezerwacji +
+
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rezerwacja that = (Rezerwacja) o;
+        return numerRezerwacji == that.numerRezerwacji && lot.equals(that.lot) && miejsce.equals(that.miejsce) && pasazer.equals(that.pasazer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lot, miejsce, pasazer, numerRezerwacji);
     }
 }

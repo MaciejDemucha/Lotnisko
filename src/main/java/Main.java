@@ -1,7 +1,10 @@
+import Dane.Lot;
+import Dane.Miejsce;
+import Dane.Pasazer;
+import Dane.Rezerwacja;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
@@ -11,10 +14,12 @@ public class Main {
     public static void main(String[] args) {
         Lot lot = new Lot(50,"Warszawa - Berlin", LocalDateTime.now());
         System.out.println(lot.toString());
-        loty.put(0, lot);
+        //loty.put(0, lot);
+        dodajLot(lot);
 
         Rezerwacja rezerwacja = rezerwujLot();
         System.out.println(rezerwacja.getNumerRezerwacji());
+        System.out.println(rezerwacja.toString());
        if(anulujRezerwacje() == 2)
            System.out.println("Sukces");
     }
@@ -143,7 +148,7 @@ public class Main {
     }
 
     private static void dodajLot(Lot lot){
-
+        loty.put(0, lot);
     }
 
     private static Lot wyszukajLot(){
