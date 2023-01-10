@@ -14,7 +14,6 @@ public class Main {
     public static void main(String[] args) {
         Lot lot = new Lot(50,"Warszawa - Berlin", LocalDateTime.now());
         System.out.println(lot.toString());
-        //loty.put(0, lot);
         dodajLot(lot);
 
         Rezerwacja rezerwacja = rezerwujLot();
@@ -40,7 +39,7 @@ public class Main {
         this.rezerwacje = rezerwacje;
     }
 
-    public static Pasazer pobierzAtrybuty(){
+    private static Pasazer pobierzAtrybuty(){
         String imie = "", nazwisko = "";
         int nrPaszportu = 0;
 
@@ -112,7 +111,7 @@ public class Main {
     }
 
     private static void oplacRezerwacje(Rezerwacja rezerwacja){
-
+        System.out.println("Opłacono rezerwacje nr: " + rezerwacja.getNumerRezerwacji());
     }
 
     private static Rezerwacja wyszukajRezerwacje(){
@@ -148,7 +147,7 @@ public class Main {
     }
 
     private static void dodajLot(Lot lot){
-        loty.put(0, lot);
+        loty.put(lot.getNumerLotu(), lot);
     }
 
     private static Lot wyszukajLot(){
