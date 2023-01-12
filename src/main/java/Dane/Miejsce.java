@@ -7,6 +7,7 @@ public class Miejsce {
 
     public Miejsce(int numer) {
         this.numer = numer;
+        this.czyZajete = false;
     }
 
     public int getNumer() {
