@@ -7,19 +7,21 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Main {
+public class Aplikacja {
     static HashMap<Integer, Lot> loty = new HashMap<>();
     static HashMap<Integer, Rezerwacja> rezerwacje = new HashMap<Integer, Rezerwacja>();
 
     public static void main(String[] args) {
-        Lot lot = new Lot(50,"Warszawa - Berlin", LocalDateTime.now());
+        Lot lot = new Lot(0,50,"Warszawa - Berlin", LocalDateTime.now());
         System.out.println(lot.toString());
         dodajLot(lot);
 
-        Rezerwacja rezerwacja = rezerwujLot();
+        Lot wybranyLot = wyszukajLot();
+        Rezerwacja rezerwacja = rezerwujLot(wybranyLot);
         System.out.println(rezerwacja.getNumerRezerwacji());
         System.out.println(rezerwacja.toString());
-       if(anulujRezerwacje() == 2)
+        Rezerwacja wybranaRezerwacja = wyszukajRezerwacje();
+       if(anulujRezerwacje(wybranaRezerwacja) == 2)
            System.out.println("Sukces");
     }
 
@@ -39,9 +41,17 @@ public class Main {
         this.rezerwacje = rezerwacje;
     }
 
-    private static Pasazer pobierzAtrybuty(){
+    private static boolean czyZawieraCyfre(String string){
+        char[] chars = string.toCharArray();
+        for(char c : chars)
+            if(Character.isDigit(c))
+               return true;
+        return false;
+    }
+
+    public static Pasazer pobierzAtrybuty() {
         String imie = "", nazwisko = "";
-        int nrPaszportu = 0;
+        String nrPaszportu = "";
 
         Scanner scanner = new Scanner(System.in);
 
@@ -50,13 +60,16 @@ public class Main {
         System.out.println("Podaj nazwisko: ");
         nazwisko = scanner.nextLine();
         System.out.println("Podaj numer paszportu: ");
-        nrPaszportu = Integer.parseInt(scanner.nextLine());
+        nrPaszportu = scanner.nextLine();
+
+        if(czyZawieraCyfre(imie) || czyZawieraCyfre(nazwisko) || imie.length() == 0 || nazwisko.length() == 0 || nrPaszportu.length() == 0)
+            throw new IllegalArgumentException("Złe dane");
 
         return new Pasazer(imie, nazwisko, nrPaszportu);
     }
 
-    private static Rezerwacja rezerwujLot(){
-        Lot lot = wyszukajLot();
+    private static Rezerwacja rezerwujLot(Lot lot) {
+
         if(!lot.czyJestWolneMiejsce()){
             return null;
         }
@@ -87,8 +100,8 @@ public class Main {
         return rezerwacja;
     }
 
-    private static int anulujRezerwacje(){
-        Rezerwacja rezerwacja = wyszukajRezerwacje();
+    public static int anulujRezerwacje(Rezerwacja rezerwacja){
+
 
         if(rezerwacja == null){
             return 0; //nie znaleziono rezerwacji
@@ -106,7 +119,8 @@ public class Main {
         if(!czyKlientPotwierdzaUsuniecieRezerwacje){
             return 1; //klient anulowal usuwanie rezerwacji
         }
-        rezerwacje.remove(rezerwacja.getNumerRezerwacji());
+        int numerRezerwacji = rezerwacja.getNumerRezerwacji();
+        rezerwacje.remove(numerRezerwacji);
         return 2; // rezerwacja poprawnie usunięta
     }
 
@@ -122,8 +136,7 @@ public class Main {
        return rezerwacja;
     }
 
-    private static int anulujLot(){
-        Lot lot = wyszukajLot();
+    public static int anulujLot(Lot lot){
 
         if(lot == null){
             return 0; //nie znaleziono lotu
