@@ -27,7 +27,7 @@ public class LotTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         Object[][] data1 = new Object[][]{
-                {0, true}, {1, false},{2, true} };
+                {0, false}, {1, false},{2, true} };
         return Arrays.asList(data1);
     }
 
@@ -47,11 +47,11 @@ public class LotTest {
        System.setIn(bais);
        exception.expect(NumberFormatException.class);
        //Assert.assertThrows(NumberFormatException.class, dane.loty.get(numerLotu)::wybierzMiejsce);
-       dane.loty.get(numerLotu).wybierzMiejsce();
+       Dane.loty.get(numerLotu).wybierzMiejsce();
     }
 
     @Test
     public void czyJestWolneMiejsceTest(){
-        Assert.assertEquals(czyJestWolneExpected, dane.loty.get(numerLotu).czyJestWolneMiejsce());
+        Assert.assertEquals(czyJestWolneExpected, Dane.loty.get(numerLotu).czyJestWolneMiejsce());
     }
 }

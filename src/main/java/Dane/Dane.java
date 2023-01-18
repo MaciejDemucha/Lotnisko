@@ -15,6 +15,17 @@ public class Dane {
         loty.put(2, new Lot(2,50, "Warszawa - Londyn", LocalDateTime.now()));
         loty.put(3, new Lot(3,50, "Warszawa - Amsterdam", LocalDateTime.now()));
 
+        Lot lot2 = loty.get(1);
+        ArrayList<Miejsce> miejsca = lot2.getMiejsca();
+        for (Miejsce miejsce:miejsca) {
+            miejsce.setCzyZajete(true);
+        }
+
+        Lot lot3 = loty.get(2);
+        miejsca = lot3.getMiejsca();
+        for(int i = 0; i < miejsca.size()-1; i++)
+            miejsca.get(i).setCzyZajete(true);
+
     }
 
 
@@ -39,14 +50,7 @@ public class Dane {
         Lot lot4 = new Lot(3,50, "Warszawa - Amsterdam", LocalDateTime.now());
 
 
-        ArrayList<Miejsce> miejsca = lot2.getMiejsca();
-        for (Miejsce miejsce:miejsca) {
-            miejsce.setCzyZajete(true);
-        }
 
-        miejsca = lot3.getMiejsca();
-        for(int i = 0; i < miejsca.size()-1; i++)
-            miejsca.get(i).setCzyZajete(true);
 
 
 
