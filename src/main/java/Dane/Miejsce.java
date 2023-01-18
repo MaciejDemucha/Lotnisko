@@ -8,6 +8,10 @@ public class Miejsce {
     public Miejsce(int numer) {
         this.numer = numer;
     }
+    public Miejsce(int numer, boolean czyZajete) {
+        this.numer = numer;
+        this.czyZajete = czyZajete;
+    }
 
     public int getNumer() {
         return numer;
@@ -24,4 +28,6 @@ public class Miejsce {
     public void setCzyZajete(boolean czyZajete) {
         this.czyZajete = czyZajete;
     }
+
+
 }

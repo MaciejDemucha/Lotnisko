@@ -24,6 +24,14 @@ public class Rezerwacja {
 
     }
 
+    public Rezerwacja(int numerRezerwacji, Lot lot, Miejsce miejsce, Pasazer pasazer) {
+        this.lot = lot;
+        this.miejsce = miejsce;
+        this.miejsce.setCzyZajete(true);
+        this.pasazer = pasazer;
+        this.numerRezerwacji = numerRezerwacji;
+    }
+
 
     public Lot getLot() {
         return lot;

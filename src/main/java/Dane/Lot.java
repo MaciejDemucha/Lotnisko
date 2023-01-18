@@ -9,14 +9,14 @@ public class Lot {
     private String relacja;
     private LocalDateTime godzina;
 
-    public Lot(int liczbaMiejsc, String relacja, LocalDateTime godzina) {
+    public Lot(int numerLotu, int liczbaMiejsc, String relacja, LocalDateTime godzina) {
         this.miejsca = new ArrayList<>();
         for (int i = 0; i < liczbaMiejsc; i++){
             this.miejsca.add(new Miejsce(i+1));
         }
         this.relacja = relacja;
         this.godzina = godzina;
-        this.numerLotu = 0;
+        this.numerLotu = numerLotu;
     }
 
     public int getNumerLotu() {
@@ -27,7 +27,7 @@ public class Lot {
         this.numerLotu = numerLotu;
     }
 
-    public List<Miejsce> getMiejsca() {
+    public ArrayList<Miejsce> getMiejsca() {
         return miejsca;
     }
 
@@ -80,17 +80,18 @@ public class Lot {
             return miejsce;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lot lot = (Lot) o;
-        return miejsca.equals(lot.miejsca) && relacja.equals(lot.relacja) && godzina.equals(lot.godzina);
+        return numerLotu == lot.numerLotu && Objects.equals(miejsca, lot.miejsca) && Objects.equals(relacja, lot.relacja) && Objects.equals(godzina, lot.godzina);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(miejsca, relacja, godzina);
+        return Objects.hash(numerLotu, miejsca, relacja, godzina);
     }
 
     @Override
