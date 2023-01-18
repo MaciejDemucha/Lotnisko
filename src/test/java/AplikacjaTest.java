@@ -2,6 +2,7 @@ import Dane.Dane;
 import Dane.Pasazer;
 import Dane.Rezerwacja;
 import Dane.Lot;
+import Dane.Miejsce;
 import Dane.TestControl;
 import Dane.TestEntity;
 import com.sun.tools.javac.Main;
@@ -12,9 +13,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 
+import javax.xml.crypto.Data;
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 
 @Category({TestControl.class, TestEntity.class})
 @RunWith(Parameterized.class)
@@ -51,10 +54,17 @@ public class AplikacjaTest {
     @Parameterized.Parameter(value = 6)
     public int expectedOutput;
 
+    @Parameterized.Parameter(value = 7)
+    public Lot expectedLotOutput;
+
+    @Parameterized.Parameter(value = 8)
+    public Rezerwacja expectedRezerwacjaOutput;
+
+
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         Object[][] data1 = new Object[][]{
-                 {"Maciej", "Demucha2", "AB1234567", 32, 43, 1, 0},{"Maciej", "Demucha", "",  1, 1, 1, 2}, {"Mac3iej", "Demucha", "AB1234567",  1, 2, 2, 1} };
+                 {"Maciej", "Demucha2", "AB1234567", 32, 43, 1, 0, null, null}, {"Maciej", "Demucha", "",  1, 1, 1, 2, Dane.loty.get(1),Dane.rezerwacje.get(1)}, {"Mac3iej", "Demucha", "AB1234567",  1, 2, 2, 1, Dane.loty.get(2),Dane.rezerwacje.get(2)} };
         return Arrays.asList(data1);
     }
 
@@ -93,7 +103,7 @@ public class AplikacjaTest {
 
     @Test
     public void anulujLotTest(){
-        Lot lot = dane.loty.get(nrLotu);
+        Lot lot = Dane.loty.get(nrLotu);
 
         String userInput = String.format("%2d%s", wybor , System.lineSeparator());
         ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
@@ -104,11 +114,28 @@ public class AplikacjaTest {
 
     @Test
     public void wyszukajLotTest(){
+        Lot lot = Dane.loty.get(nrLotu);
+        Aplikacja.dodajLot(lot);
+
+        String userInput = String.format("%2d%s", wybor , System.lineSeparator());
+        ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(bais);
+
+        Assert.assertEquals(expectedLotOutput, Aplikacja.wyszukajLot());
+
 
     }
-
     @Test
-    public void rezerwujLotTest(){
+    public void wyszukajRezerwacjeTest(){
+        Rezerwacja rezerwacja = Dane.rezerwacje.get(nrLotu); //nr lotu moze byc jako nr rezerwacji
+        Aplikacja.rezerwacje.put(wybor,rezerwacja);
+
+        String userInput = String.format("%2d%s", wybor , System.lineSeparator());
+        ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
+        System.setIn(bais);
+
+        Assert.assertEquals(expectedRezerwacjaOutput, Aplikacja.wyszukajRezerwacje());
 
     }
+
 }

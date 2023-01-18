@@ -68,9 +68,9 @@ public class Aplikacja {
         return new Pasazer(imie, nazwisko, nrPaszportu);
     }
 
-    private static Rezerwacja rezerwujLot(Lot lot) {
+    public static Rezerwacja rezerwujLot(Lot lot) {
 
-        if(!lot.czyJestWolneMiejsce()){
+        if(lot==null || !lot.czyJestWolneMiejsce()){
             return null;
         }
         boolean czyKlientWybieraMiejsce = false;
@@ -128,7 +128,7 @@ public class Aplikacja {
         System.out.println("Opłacono rezerwacje nr: " + rezerwacja.getNumerRezerwacji());
     }
 
-    private static Rezerwacja wyszukajRezerwacje(){
+    public static Rezerwacja wyszukajRezerwacje(){
        Rezerwacja rezerwacja;
        Scanner scanner = new Scanner(System.in);
        System.out.println("Podaj numer rezerwacji: ");
@@ -159,16 +159,18 @@ public class Aplikacja {
         return 2;
     }
 
-    private static void dodajLot(Lot lot){
-        loty.put(lot.getNumerLotu(), lot);
+    public static void dodajLot(Lot lot){
+        if(lot!=null)
+            loty.put(lot.getNumerLotu(), lot);
     }
 
-    private static Lot wyszukajLot(){
+    public static Lot wyszukajLot(){
         Lot lot;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj numer lotu: ");
         lot = loty.get(scanner.nextInt());
         return lot;
+
    }
 
 }
