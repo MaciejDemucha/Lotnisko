@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
-@Category({TestControl.class, TestEntity.class})
+@Category({TestControl.class})
 @RunWith(Parameterized.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AplikacjaTest {

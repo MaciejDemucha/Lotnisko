@@ -13,7 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Collection;
 
-@Category({TestControl.class, TestEntity.class})
+@Category({TestEntity.class})
 @RunWith(Parameterized.class)
 public class LotTest {
     Dane dane;
