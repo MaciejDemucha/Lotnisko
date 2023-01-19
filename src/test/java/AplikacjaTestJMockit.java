@@ -1,8 +1,8 @@
 import Dane.Lot;
 import Dane.Pasazer;
 import Dane.Rezerwacja;
-import mockit.Mocked;
-import mockit.VerificationsInOrder;
+import com.sun.security.auth.module.JndiLoginModule;
+import mockit.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +12,12 @@ import java.time.LocalDateTime;
 public class AplikacjaTestJMockit {
     @Mocked
     Pasazer pasazer;
+
+    @Mocked
+    Aplikacja aplikacja;
+
+    @Injectable
+    Lot lot1, lot2, lot3;
 
     @Test
     public void testEquals(){
@@ -29,4 +35,40 @@ public class AplikacjaTestJMockit {
             maxTimes = 2;
         }};
     }
+
+    @Test
+    public void wyszukajLotTest(){
+        lot1.setNumerLotu(0);
+        lot2.setNumerLotu(1);
+        lot3.setNumerLotu(2);
+        Lot[] loty = new Lot[]{lot1,lot2,lot3};
+        int[] numery = new int[]{0,1,2};
+
+        for (int i = 0; i < 3; i++)
+            Assert.assertEquals(Aplikacja.wyszukajLot(numery[i]), loty[i]); //dodatkowy test assertEquals
+
+        new VerificationsInOrder() {{
+            lot1.equals(any);
+            times = 2;
+            lot2.equals(any);
+            times = 3;
+            lot3.equals(any);
+            times = 4;
+        }};
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testPobierzAtrybutyBlednyformat() {
+       String imie = "Maciej";
+       String nazwisko = "Demucha";
+       String nrPaszportu = "";
+        new Expectations() {
+            {
+               aplikacja.pobierzAtrybuty(imie, nazwisko, nrPaszportu);
+                result=new IllegalArgumentException();
+            }
+        };
+
+    }
 }
+

@@ -68,6 +68,14 @@ public class Aplikacja {
         return new Pasazer(imie, nazwisko, nrPaszportu);
     }
 
+    public static Pasazer pobierzAtrybuty(String imie, String nazwisko,  String nrPaszportu) {
+
+        if(czyZawieraCyfre(imie) || czyZawieraCyfre(nazwisko) || imie.length() == 0 || nazwisko.length() == 0 || nrPaszportu.length() == 0)
+            throw new IllegalArgumentException("Złe dane");
+
+        return new Pasazer(imie, nazwisko, nrPaszportu);
+    }
+
     public static Rezerwacja rezerwujLot(Lot lot) {
 
         if(lot==null || !lot.czyJestWolneMiejsce()){
@@ -172,5 +180,11 @@ public class Aplikacja {
         return lot;
 
    }
+
+    public static Lot wyszukajLot(int numer){
+        Lot lot = loty.get(numer);
+        return lot;
+
+    }
 
 }
